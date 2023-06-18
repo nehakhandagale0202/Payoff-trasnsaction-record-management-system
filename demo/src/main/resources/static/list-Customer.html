@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Customer_list</title>
+  </head>
+  <body>
+    List of Customer
+    <ul id="customerList"></ul>
+    <table class="table table-striped table-responsive-md">
+      <thead>
+        <tr>
+          <th>NAME</th>
+          <th>Mobile No.</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <tbody id="table-body"></tbody>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div>
+                Enter Customer Name : <input id="cust_name" type="text" /> <br />
+                <br />
+                Enter Customer Mobile no. : <input id="cust_mob" type="text" /> <br />
+                <br />
+                Enter Customer Address : <input id="cust_add" type="text" /> <br />
+                <br />
+                Enter Customer City : <input id="cust_city" type="text" /> <br />
+                <br />
+              </div>
+        
+            <a href="/list-Customer.html">List Customer</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <p id="modalbtn"></p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    fetch("http://localhost:9001/customer/allCustomer")
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Error:" + response.status);
+        }
+      })
+      .then((data) => {
+        let tableBody = document.getElementById("table-body");
+
+        data.forEach((customer) => {
+          console.log(customer.id);
+          console.log(customer.city);
+          let records = [
+            {
+              id: customer.id,
+              name: customer.name,
+              mob: customer.mob,
+              add: customer.add,
+              city: customer.city,
+            },
+          ];
+
+          for (let i = 0; i < records.length; i++) {
+            let record = records[i];
+
+            let tr = document.createElement("tr");
+            let idTd = document.createElement("td");
+
+            idTd.innerText = record.id;
+            let nameTd = document.createElement("td");
+
+            console.log("v ", idTd.innerText);
+
+            nameTd.setAttribute("id", "el-id");
+            let id6 = nameTd.getAttribute("id");
+
+            let id5 = document.getElementById("el-id");
+            nameTd.innerText = record.name;
+
+            let mobTd = document.createElement("td");
+            mobTd.innerText = record.mob;
+
+            let addTd = document.createElement("td");
+            addTd.innerText = record.add;
+
+            let cityTd = document.createElement("td");
+            cityTd.innerText = record.city;
+
+            let editTd = document.createElement("td");
+            editTd.innerHTML +=
+            `<button type="button" onclick="editRecord(${record.id})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              edit
+             </button>`
+            let deleteTd = document.createElement("td");
+            deleteTd.innerHTML += ` 
+            <button type="button" onclick="deleteRecord(${record.id})" class="btn btn-danger">Delete</button>`;
+            
+            // tr.appendChild(idTd);
+            tr.appendChild(nameTd);
+            tr.appendChild(mobTd);
+            tr.appendChild(addTd);
+            tr.appendChild(cityTd);
+            tr.appendChild(editTd);
+            tr.appendChild(deleteTd);
+
+            tableBody.appendChild(tr);
+          }
+        });
+      })
+      .catch((error) => {
+        alert("error while fetching customers");
+        console.error(error);
+      });
+
+    function deleteRecord(id) {
+      console.log("Button clicked");
+      var cust = {
+        id: id,
+      };
+
+      fetch("http://localhost:9001/customer/delete/" + cust.id, {
+        method: "delete",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(cust),
+      })
+        .then((response) => {
+          console.log(response);
+          alert("Customer removed successfully");
+          location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Customer not added");
+        });
+    }
+
+    let temp;
+    function editRecord(e){
+      console.log("onclick", e);
+      let mbtn = document.getElementById("modalbtn");
+      mbtn.innerHTML = `<button type="button" onclick="editRecord2(${e})" class="btn btn-primary">Save changes</button>`
+    }
+
+      var custNameElem = document.getElementById("cust_name");
+      var custMobElem = document.getElementById("cust_mob");
+      var custAddElem = document.getElementById("cust_add");
+      var custCityElem = document.getElementById("cust_city");
+    function editRecord2(id){
+      console.log("Button clicked");
+      var cust = {
+        id: id,
+        name: custNameElem.value,
+        mob: custMobElem.value,
+        add: custAddElem.value,
+        city: custCityElem.value,
+      };
+
+      fetch("http://localhost:9001/customer/update/" + cust.id, {
+        method: "put",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(cust),
+      })
+        .then((response) => {
+          console.log(response);
+          alert("Customer updated successfully");
+          location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Customer not updated");
+        });
+    }
+  </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

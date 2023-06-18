@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="login-form">
+      <!-- form fields for username and password -->
+      <input type="text" name="username" id="username" />
+      <input type="password" name="password" id="password" />
+      <!-- login button -->
+      <button type="submit" id="login-btn">Login</button>
+    </form>
+
+    <script>
+    //   var empNameElem = document.getElementById("username");
+    //   var empAgeElem = document.getElementById("password");
+      //   var empSalaryElem = document.getElementById("emp_salary");
+
+      const loginButton = document.getElementById("login-btn");
+
+      loginButton.addEventListener("click", () => {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+
+        fetch("http://localhost:9001/user/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+          }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Login successful.");
+              alert("login");
+              window.location.href = "/dashboard.html";
+            } else {
+              console.error("Login failed.");
+              alert("login failed");
+            }
+          })
+          .catch((error) => {
+            console.error("An error occurred:", error);
+          });
+      });
+    </script>
+  </body>
+</html>

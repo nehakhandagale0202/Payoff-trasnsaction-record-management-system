@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap Background Image Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      body {
+        background-image: url("/img/Customer_bg.jpg");
+        background-size: cover;
+      }
+      .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        max-width: 500px;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid black;
+      }
+      .form-heading {
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1 class="form-heading">Add Party</h1>
+      <!-- <form> -->
+        <div class="form-group">
+          <label for="inputUsername">Mobile Number</label>
+          <div class="input-group">
+            <!-- <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div> -->
+            <input
+              type="text"
+              class="form-control"
+              id="cust_mob"
+              placeholder="Enter mobile Number"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword">Party Name</label>
+          <div class="input-group">
+            <!-- <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            </div> -->
+            <input
+              type="text"
+              class="form-control"
+              id="cust_name"
+              placeholder="Party Name"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="inputUsername">Address</label>
+            <div class="input-group">
+              <!-- <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+              </div> -->
+              <input
+                type="text"
+                class="form-control"
+                id="cust_add"
+                placeholder="Enter mobile Number"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputUsername">city</label>
+            <div class="input-group">
+              <!-- <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+              </div> -->
+              <input
+                type="text"
+                class="form-control"
+                id="cust_city"
+                placeholder="Enter mobile Number"
+              />
+            </div>
+          </div>
+        <button onclick="addParty()" class="btn btn-primary">
+          Add Party
+        </button>
+      <!-- </form> -->
+    </div>
+
+    <script>
+      var custNameElem = document.getElementById("cust_name");
+      var custMobElem = document.getElementById("cust_mob");
+      var custAddElem = document.getElementById("cust_add");
+      var custCityElem = document.getElementById("cust_city");
+
+      function addParty(){
+        var customer = {
+          name: custNameElem.value,
+          mob: custMobElem.value,
+          add: custAddElem.value,
+          city: custCityElem.value,
+        };
+        console.log(customer)
+        fetch("http://localhost:9001/customer/AddOrUpdate", {
+          method: "post",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(customer),
+        })
+          .then(
+            (response) => {
+            console.log(response);
+            alert("Customer added successfully");
+            window.location.href = "/parties.html";}
+          )
+          .catch((err) => {
+            console.log(err);
+            alert("Customer not added");}
+          );
+      }
+    </script>
+  </body>
+</html>

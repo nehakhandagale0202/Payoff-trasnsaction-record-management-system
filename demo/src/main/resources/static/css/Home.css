@@ -1,0 +1,39 @@
+body{
+
+margin: 0;
+padding: 0;
+justify-content: center;
+background-image: url("/img/welcome.jpg");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 100%;
+
+
+}
+
+.tocheckAccount{
+text-justify: auto;
+text-align: right;
+text-decoration: none;
+margin-top: 180px;
+margin-left: 600px;
+}
+
+.term-box{
+    display: flex;
+    max-height: 200px;
+    max-width: 200px;
+    background-color: #48b5c4;
+    color: #fff;
+    font-family: "montsarrat";
+    padding: 10px 10px;
+
+    
+min-height: 50vh;
+display: flex;
+align-items: center;
+justify-content: center;
+    }
+
+    
+    

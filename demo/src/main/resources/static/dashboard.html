@@ -1,0 +1,175 @@
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>Parties page</title>
+    </head>
+
+<style type="text/css">
+    @import url('https//fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+.background-image
+{
+    background-image: url('Customer_bg.jpg');
+    /* display: inline-block; */
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+.background-image .imgbx
+{
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    margin-top: 60;
+    margin-left: 70;
+}
+.background-image .imgbx img
+{
+    position: absolute;
+    width: 70px;
+    height: 70px;
+}
+.background-image .payoff h2
+{
+    position: absolute;
+    color: white;
+    font-size: 2em;
+    margin-top: 70;
+    margin-left: 150;
+    letter-spacing: 0.1em;
+    font-style: oblique;
+}
+.background-image .box
+{
+    position: absolute;
+    margin-top: 150;
+    margin-left: 250;
+    width: 800;
+    height: 400;
+    background: white;
+    border-radius: 8px;
+    border-style: groove;
+}
+.box form .img1 img
+{ 
+    position: absolute;
+    margin-left: 60;
+    margin-top: -10;
+    height: 70;
+    width: 70;
+}
+.box form .img2 img
+{
+    position: absolute;
+    margin-top: 120;
+    margin-left: 60;
+    height: 70;
+    width: 70;
+}
+.box form .inputBox span
+{
+    position: absolute;
+    margin-top: 10;
+    margin-left: 20;
+    color: black;
+    font-size: 1.5em;
+    letter-spacing: 0.05em;
+}
+.box form .inputbox
+{
+    position: relative;
+    width: 300px;
+    margin-top: 85px;
+    margin-left: 120;
+}
+.box form button[type="submit"]
+{
+    width: 150px;
+    height: 40px;
+    background: #2B6777;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-left: 200;
+    margin-top: 5;
+    border-radius: 25px;
+    color: white;
+    letter-spacing: 0.05em;
+}
+.box form .inputbox .view button[type="submit"]
+{
+    width: 100px;
+    height: 40px;
+    background: #2B6777;
+    font-size: 0.9em;
+    margin-left: 400;
+    margin-top: -42;
+    border-radius: 25px;
+    color: white;   
+}
+.background-image .back input[type="submit"]
+{
+    position: absolute;
+    padding: 9px 25px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.9em;
+    border: #fff;
+    border-radius: 25px;
+    color:black;
+    margin-top: 570;
+    margin-left: 950;
+}
+
+</style>
+
+<body>
+    <div class="background-image">
+        <div class="payoff">
+            <h2>PayOff</h2>
+        </div>
+
+        <div class="imgBx">
+            <img src="images.jpeg" alt="">
+        </div>
+
+        <div class="box">
+            <form >
+                <div class="img1">
+                    <img src="cutomer-images.jpg" alt="">
+                </div>
+                <div class="img2">
+                    <img src="Retailer-icon.png" alt="">
+                 </div>
+               
+                <div class="inputBox">
+                    <span>Customers</span>
+                    <a href="/"> <button type="submit">Add Customers</button></a>
+                   
+                    <div class="view">
+                        <button type="submit">View</button>
+                    </div>
+                </div>
+
+                <div class="inputBox">
+                    <span>Retailers</span>
+                    <button type="submit">Add Retailers</button>
+                    <div class="view">
+                        <button type="submit">View</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="back">
+            <input type="submit" value="Back">
+        </div>
+    </div>
+</body>
+</html>

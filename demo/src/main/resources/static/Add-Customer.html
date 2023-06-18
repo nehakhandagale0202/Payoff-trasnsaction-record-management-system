@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>Add Customer portal</title>
+  </head>
+
+  <body>
+    <div>
+      Enter Customer name: <input id="cust_name" type="text" /> <br />
+      <br />
+      Enter Customer Mobile No. : <input id="cust_mob" type="text"> <br>
+      <br>
+      Enter Customer add: <input id="cust_add" type="text" /> <br />
+      <br />
+      Enter Customer city: <input id="cust_city" type="text" /> <br />
+      <br />
+      <button onclick="addCustomer()">Add Customer</button>
+    </div>
+
+    <a href="/list-Customer.html">List Customer</a>
+    
+    <script>
+      // var empIdElem = document.getElementById("empid");
+      var custNameElem = document.getElementById("cust_name");
+      var custMobElem = document.getElementById("cust_mob");
+      var custAddElem = document.getElementById("cust_add");
+      var custCityElem = document.getElementById("cust_city");
+
+      function addCustomer() {
+        var customer = {
+          name: custNameElem.value,
+          mob: custMobElem.value,
+          add: custAddElem.value,
+          city: custCityElem.value,
+        };
+        console.log(customer)
+        fetch("http://localhost:9001/customer/AddOrUpdate", {
+          method: "post",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(customer),
+        })
+          .then(
+            (response) => {
+            console.log(response);
+            alert("Customer added successfully");}
+          )
+          .catch((err) => {
+            console.log(err);
+            alert("Customer not added");}
+          );
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap Background Image Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      body {
+        background-image: url("/img/bg-login.jpg");
+        background-size: cover;
+      }
+      .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        max-width: 500px;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid black;
+      }
+      .form-heading {
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1 class="form-heading">login Here</h1>
+      <!-- <form> -->
+        <div class="form-group">
+          <label for="inputUsername">Mobile Number</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              id="mono"
+              placeholder="Enter mobile Number"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword">Password</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            </div>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Password"
+            />
+          </div>
+        </div>
+        <button onclick="loginUser()" class="btn btn-primary">
+          login
+        </button>
+      <!-- </form> -->
+    </div>
+
+    <script>
+      const loginButton = document.getElementById("login-btn");
+
+      //   loginButton.addEventListener("click", () => {
+      const mobileInput = document.getElementById("mono");
+      const passwordInput = document.getElementById("password");
+
+      function loginUser() {
+        if (!validateMobile()) {
+          return;
+        }
+
+        if (!validatePassword()) {
+          return;
+        }
+
+        var Users = {
+          username: mobileInput.value,
+          password: passwordInput.value,
+        };
+        fetch("http://localhost:9001/user/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Users),
+        })
+          .then((response) => {
+            if (response.ok) {
+              console.log("Login successful.");
+              alert("login");
+              window.location.href = "/dashboardPage.html";
+            } else {
+              console.error("Login failed.");
+              alert("login failed");
+            }
+          })
+          .catch((error) => {
+            console.error("An error occurred:", error);
+          });
+      }
+       
+      function validateMobile() {
+        const value = mobileInput.value;
+        if (!value.match(/^[789]\d{9}$/)) {
+          alert('Invalid mobile number. Mobile number should start with 7, 8, or 9 and be 10 digits long.');
+          mobileInput.focus();
+          return false;
+        }
+        return true;
+      }
+
+      function validatePassword() {
+        const value = passwordInput.value;
+        if (value.trim() === '') {
+          alert('Password is required');
+          passwordInput.focus();
+          return false;
+        }
+        if (value.length < 8) {
+          alert('Password must be at least 8 characters long');
+          passwordInput.focus();
+          return false;
+        }
+        return true;
+      }
+    </script>
+
+
+
+
+
+
+
+
+
+
+      //   });
+    </script>
+  </body>
+</html>
